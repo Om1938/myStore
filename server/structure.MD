@@ -1,0 +1,5 @@
+- Authentication - Login,Register
+- Products - CRUD
+- Cart
+- Payment
+- Address
