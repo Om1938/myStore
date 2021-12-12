@@ -1,0 +1,70 @@
+:host {
+  margin: auto;
+}
+.card {
+  width: 300px;
+  box-shadow: none;
+}
+.card:hover {
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+.card > * {
+  margin: 5px 0 0 0;
+}
+.image {
+  width: 100%;
+  height: 200px;
+}
+.name-container {
+  font-weight: 500;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tags-container {
+  font-size: smaller;
+  color: #878787;
+}
+
+.ratings-container {
+  background-color: green;
+  color: white;
+  width: max-content;
+  padding: 2px 5px 2px 5px;
+
+  border-radius: 5px;
+}
+
+.num-ratings {
+  padding: 2px 5px 2px 5px;
+}
+.price-container {
+  font-weight: 500;
+
+  .old-price {
+    font-size: 14px;
+    color: #878787;
+  }
+
+  .discount {
+    margin-left: 5px;
+    color: green;
+  }
+}
+
+button.add-to-cart {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border-width: 0.5px;
+  border-color: #878787;
+  background-color: #cdccc163;
+  border-width: 0;
+  box-shadow: 1px 1px 1px 1px #878787;
+}
+button.add-to-cart:active {
+  box-shadow: 1px 1px 1px 1px black;
+}

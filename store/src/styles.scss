@@ -10,7 +10,14 @@ body {
 }
 
 .flex {
-  display: flex;
+  display: flex !important;
+
+  &.around {
+    justify-content: space-around;
+  }
+  &.between {
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 576px) {

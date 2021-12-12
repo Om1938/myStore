@@ -6,6 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/auth", require("./controllers/Auth/AuthAPI"));
+app.use("/product", require("./controllers/Product/ProductAPI"));
 
 app.use(function (err, req, res, next) {
   let status = err.status || 500;

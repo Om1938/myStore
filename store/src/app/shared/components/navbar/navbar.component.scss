@@ -1,6 +1,32 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-.mat-toolbar-single-row {
-  height: 40px;
+
+.navbar-spacer {
+  flex: 1 1 auto;
+}
+
+.navbar {
+  z-index: 2;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.navbar-is-mobile .navbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
 }
