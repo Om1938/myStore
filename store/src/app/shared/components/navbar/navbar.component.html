@@ -28,7 +28,14 @@
       <span>You have a new message</span>
     </a>
   </mat-menu>
-
+  <ng-container *ngIf="!(_auth.user | async)">
+    <a class="auth-links navbar-brand" [routerLink]="['/auth', 'login']"
+      ><h3>Login</h3></a
+    >
+    <a class="auth-links navbar-brand" [routerLink]="['/auth', 'register']"
+      ><h3>SignUp</h3></a
+    >
+  </ng-container>
   <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="_auth.user | async">
     <mat-icon>person</mat-icon>
     <span fxShow fxHide.xs>

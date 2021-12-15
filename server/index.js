@@ -7,6 +7,7 @@ app.use(express.json());
 
 app.use("/auth", require("./controllers/Auth/AuthAPI"));
 app.use("/product", require("./controllers/Product/ProductAPI"));
+app.use("/cart", require("./controllers/Cart/CartAPI"));
 
 app.use(function (err, req, res, next) {
   let status = err.status || 500;
@@ -14,6 +15,7 @@ app.use(function (err, req, res, next) {
   if (process.env.NODE_ENV == "development") console.error(err);
   if (err.data) res.json({ message: err.message, ...err.data });
   else res.json({ message: err.message });
+  throw err;
 });
 
 app.listen(3000, () => {

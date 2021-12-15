@@ -7,6 +7,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f1f3f6;
 }
 
 .flex {
@@ -17,6 +18,15 @@ body {
   }
   &.between {
     justify-content: space-between;
+  }
+  &.center {
+    justify-content: center;
+  }
+  &.col {
+    flex-direction: column;
+  }
+  &.row {
+    flex-direction: row;
   }
 }
 

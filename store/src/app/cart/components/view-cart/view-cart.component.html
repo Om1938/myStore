@@ -1,0 +1,48 @@
+<div class="flex main-container">
+  <mat-card style="width: 77%">
+    <span style="font-size: 18px"> My Cart </span>
+
+    <!-- image: "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2020_34/1601385/chia-jam-kb-main-200817.jpg"
+name: "Jam"
+price: {currentPrice: 99, discount: 1, oldPrice: 100}
+quantity: 12 -->
+
+    <div *ngFor="let order of orders">
+      <div class="flex">
+        <div class="image-container">
+          <img [src]="order.image" alt="Product Image" />
+        </div>
+        <div class="flex details-container">
+          <span>{{ order.name }}</span>
+          <div class="price-container">
+            <span class="curr-price"> ₹{{ order.price.currentPrice }} </span>
+            <s class="old-price"> ₹{{ order.price.oldPrice }} </s>
+            <span class="discount"> {{ order.price.discount }}% off </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card style="width: 33%; margin: 0 0 0 16px">
+    <h3>Price Details</h3>
+    <hr />
+    <div class="flex row between">
+      <h3>Price ({{ orders.length }} item)</h3>
+      <h3>₹{{ totalPrice }}</h3>
+    </div>
+    <div class="flex row between">
+      <h3>Discount</h3>
+      <h3>₹{{ totalDiscount }}</h3>
+    </div>
+    <hr />
+    <div class="flex row between">
+      <h3>Total Amount</h3>
+      <h3>₹{{ totalDiscount }}</h3>
+    </div>
+    <hr />
+    <div class="flex row between center">
+      <h3>Thankyou for the Transaction 😀</h3>
+    </div>
+  </mat-card>
+</div>

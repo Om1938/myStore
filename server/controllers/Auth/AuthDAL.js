@@ -49,7 +49,7 @@ module.exports.login = async ({ email, password }) => {
   var token = jwt.sign(
     { roles: user.roles, email },
     "MyVeryPersonalSecretKeyAndThisIsNotPersonalReallyItsNotButKeepItSecure",
-    { expiresIn: "1h" }
+    { expiresIn: "1d" }
   );
 
   return { success: true, token: token, user: userRet(user) };
