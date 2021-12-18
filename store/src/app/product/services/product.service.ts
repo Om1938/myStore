@@ -12,4 +12,8 @@ export class ProductService {
   getAllProducts() {
     return this._http.get<Product[]>(this.productURL);
   }
+
+  addProductToCart(productId: string) {
+    return this._http.post(`${this.productURL}/addtocart`, { productId });
+  }
 }

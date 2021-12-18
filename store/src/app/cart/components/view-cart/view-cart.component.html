@@ -2,47 +2,81 @@
   <mat-card style="width: 77%">
     <span style="font-size: 18px"> My Cart </span>
 
-    <!-- image: "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2020_34/1601385/chia-jam-kb-main-200817.jpg"
-name: "Jam"
-price: {currentPrice: 99, discount: 1, oldPrice: 100}
-quantity: 12 -->
-
-    <div *ngFor="let order of orders">
-      <div class="flex">
-        <div class="image-container">
-          <img [src]="order.image" alt="Product Image" />
-        </div>
-        <div class="flex details-container">
-          <span>{{ order.name }}</span>
-          <div class="price-container">
-            <span class="curr-price"> ₹{{ order.price.currentPrice }} </span>
-            <s class="old-price"> ₹{{ order.price.oldPrice }} </s>
-            <span class="discount"> {{ order.price.discount }}% off </span>
+    <div class="products">
+      <div *ngFor="let order of orders; index as i">
+        <div class="flex cart-product">
+          <div class="image-container">
+            <img [src]="order.image" alt="Product Image" />
+          </div>
+          <div class="flex details-container">
+            <span>{{ order.name }}</span>
+            <div class="price-container">
+              <span class="curr-price"> ₹{{ order.price.currentPrice }} </span>
+              <s class="old-price"> ₹{{ order.price.oldPrice }} </s>
+              <span class="discount"> {{ order.price.discount }}% off </span>
+            </div>
+          </div>
+          <div class="flex actions">
+            <div class="flex col quantity-conainer">
+              <button
+                class="add-quan-button"
+                (click)="increaseQuantity(1, order)"
+              >
+                +
+              </button>
+              <input
+                class="quantity"
+                type="number"
+                min="0"
+                [(ngModel)]="order.quantity"
+              />
+              <button
+                class="subs-quan-button"
+                (click)="decreaseQuantity(1, order)"
+                [disabled]="order.quantity <= 1"
+              >
+                -
+              </button>
+            </div>
+            <div class="delete-conainer">
+              <mat-icon
+                aria-hidden="false"
+                aria-label="delete_outline icon"
+                (click)="deleteOrder(i)"
+                >delete_outline</mat-icon
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
   </mat-card>
 
-  <mat-card style="width: 33%; margin: 0 0 0 16px">
+  <mat-card class="reciept">
     <h3>Price Details</h3>
     <hr />
     <div class="flex row between">
       <h3>Price ({{ orders.length }} item)</h3>
-      <h3>₹{{ totalPrice }}</h3>
+      <h3>₹{{ getTotalPrice() }}</h3>
     </div>
     <div class="flex row between">
       <h3>Discount</h3>
-      <h3>₹{{ totalDiscount }}</h3>
+      <h3>₹{{ getTotalDiscount() }}</h3>
     </div>
     <hr />
     <div class="flex row between">
       <h3>Total Amount</h3>
-      <h3>₹{{ totalDiscount }}</h3>
+      <h3>₹{{ getTotalDiscountedPrice() }}</h3>
     </div>
     <hr />
     <div class="flex row between center">
       <h3>Thankyou for the Transaction 😀</h3>
+    </div>
+
+    <div class="flex row between center">
+      <button mat-button color="primary" class="place-order">
+        Place Order
+      </button>
     </div>
   </mat-card>
 </div>

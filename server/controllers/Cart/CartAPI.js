@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const jwtVerify = require("../../helper/jwtVerify");
-const { get, addProduct } = require("./CartDAL");
+const {
+  get,
+  addProduct,
+  updateQuantity,
+  deleteProductFromCart,
+} = require("./CartDAL");
 // /auth/
 router
   .get("/", jwtVerify, (req, res, next) => {
@@ -12,6 +17,24 @@ router
   })
   .post("/", jwtVerify, (req, res, next) => {
     addProduct(res.user.email, req.body)
+      .then((resp) => {
+        res.json(resp);
+      })
+      .catch(next);
+  })
+  .get(
+    "/updateQuantity/product/:productId/quantity/:quantity",
+    jwtVerify,
+    (req, res, next) => {
+      updateQuantity(res.user.email, req.params)
+        .then((resp) => {
+          res.json(resp);
+        })
+        .catch(next);
+    }
+  )
+  .delete("/product/:productId", jwtVerify, (req, res, next) => {
+    deleteProductFromCart(res.user.email, req.params)
       .then((resp) => {
         res.json(resp);
       })

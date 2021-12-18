@@ -13,7 +13,7 @@ export class ViewProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.getAllProducts().subscribe((res: Product[]) => {
-      this.products = [...res, ...res, ...res, ...res, ...res];
+      this.products = res;
     });
   }
 }

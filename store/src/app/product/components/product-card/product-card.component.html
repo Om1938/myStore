@@ -23,7 +23,7 @@
     <s class="old-price"> ₹{{ product.price.oldPrice }} </s>
     <span class="discount"> {{ product.price.discount }}% off </span>
   </div>
-  <button class="add-to-cart">
+  <button (click)="addToCart()" class="add-to-cart">
     <svg
       class="_1KOMV2"
       width="16"

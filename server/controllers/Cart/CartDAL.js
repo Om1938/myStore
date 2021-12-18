@@ -30,6 +30,8 @@ module.exports.get = async (email) => {
       $project: {
         _id: 0,
         "cart.Quantity": 1,
+
+        "product._id": 1,
         "product.name": 1,
         "product.price": 1,
         "product.image": 1,
@@ -52,4 +54,36 @@ module.exports.addProduct = async (email, { productId }) => {
   let result = await Cart.findOne({ email });
 
   return result;
+};
+
+module.exports.updateQuantity = async (email, { productId, quantity }) => {
+  const dbo = await db;
+  const Cart = dbo.collection("cart");
+
+  console.log(email, quantity, productId);
+
+  if (quantity <= 0) {
+    await this.deleteProductFromCart(email, { productId });
+  } else {
+    let res = await Cart.updateOne(
+      {
+        email,
+        cart: { $elemMatch: { productId: ObjectId(productId) } },
+      },
+      { $set: { "cart.$.Quantity": quantity } }
+    );
+  }
+};
+
+module.exports.deleteProductFromCart = async (email, { productId }) => {
+  const dbo = await db;
+  const Cart = dbo.collection("cart");
+
+  let res = await Cart.updateOne(
+    {
+      email,
+    },
+    { $pull: { cart: { productId: new ObjectId(productId) } } }
+  );
+  console.log(res);
 };

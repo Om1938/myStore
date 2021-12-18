@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/auth/Models/user';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -10,6 +11,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class NavbarComponent implements OnInit {
   @Input() title: string = 'My Store';
+  @Input() showCart: boolean = true;
 
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => any;
@@ -17,6 +19,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     public _auth: AuthService,
     private readonly media: MediaMatcher,
+    public _router: Router,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     this.mobileQuery = this.media.matchMedia('(max-width: 1000px)');

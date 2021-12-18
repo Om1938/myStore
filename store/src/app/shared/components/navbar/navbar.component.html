@@ -8,14 +8,10 @@
   </a>
 
   <span class="navbar-spacer"></span>
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="notificationMenu"
-    *ngIf="_auth.user | async"
-  >
-    <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
+  <button mat-icon-button *ngIf="_auth.user | async" [routerLink]="['/cart']">
+    <mat-icon matBadge="2" matBadgeColor="accent">shopping_cart</mat-icon>
   </button>
-  <mat-menu
+  <!-- <mat-menu
     #notificationMenu="matMenu"
     xPosition="before"
     yPosition="above"
@@ -27,7 +23,7 @@
     <a mat-menu-item>
       <span>You have a new message</span>
     </a>
-  </mat-menu>
+  </mat-menu> -->
   <ng-container *ngIf="!(_auth.user | async)">
     <a class="auth-links navbar-brand" [routerLink]="['/auth', 'login']"
       ><h3>Login</h3></a
