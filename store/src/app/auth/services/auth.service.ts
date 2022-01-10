@@ -12,7 +12,7 @@ export class AuthService {
   authURL = environment.server + 'auth';
 
   user = new BehaviorSubject<User | null>(null);
-  token!: string;
+  token: string | undefined;
 
   constructor(private _http: HttpClient) {}
 
@@ -39,6 +39,7 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('token');
+    this.token = undefined;
     this.user.next(null);
   }
   getProfile() {

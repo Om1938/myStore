@@ -1,6 +1,7 @@
 import { Order } from './../../Models/cart';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from './../../services/cart.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-view-cart',
@@ -12,26 +13,49 @@ export class ViewCartComponent implements OnInit {
 
   totalPrice: number = 0;
   totalDiscount: number = 0;
-  constructor(private readonly _service: CartService) {}
+  constructor(
+    private readonly _service: CartService,
+    private _authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this._service.getCart().subscribe((res: Order[]) => {
-      this.orders = res;
-    });
+    let user = this._authService.token;
+    if (!user) {
+      this._service.getCartFromLocalStorage().subscribe((res: Order[]) => {
+        this.orders = res;
+      });
+    } else {
+      this._service.getCart().subscribe((res: Order[]) => {
+        this.orders = res;
+      });
+    }
   }
 
   increaseQuantity(qty: number, order: Order) {
     let quantity = order.quantity + qty;
-    this._service.updateQuantity(quantity, order).subscribe((res) => {
+    let user = this._authService.token;
+    if (!user) {
+      this._service.updateQuantityLocalStorage(quantity, order);
       order.increaseQuantity(qty);
-    });
+    } else {
+      this._service.updateQuantity(quantity, order).subscribe((res) => {
+        order.increaseQuantity(qty);
+      });
+    }
   }
   decreaseQuantity(qty: number, order: Order) {
     let quantity = order.quantity - qty;
-    if (quantity > 0)
-      this._service.updateQuantity(quantity, order).subscribe((res) => {
+    if (quantity > 0) {
+      let user = this._authService.token;
+      if (!user) {
+        this._service.updateQuantityLocalStorage(quantity, order);
         order.decreaseQuantity(qty);
-      });
+      } else {
+        this._service.updateQuantity(quantity, order).subscribe((res) => {
+          order.decreaseQuantity(qty);
+        });
+      }
+    }
   }
 
   getTotalPrice() {
@@ -54,8 +78,17 @@ export class ViewCartComponent implements OnInit {
   }
 
   deleteOrder(index: number) {
-    this._service.deleteProductFromCart(this.orders[index]).subscribe((res) => {
-      this.orders.splice(index, 1);
-    });
+    let user = this._authService.token;
+    if (!user) {
+      if (this._service.deleteProductFromCartLocalStorage(this.orders[index])) {
+        this.orders.splice(index, 1);
+      }
+    } else {
+      this._service
+        .deleteProductFromCart(this.orders[index])
+        .subscribe((res) => {
+          this.orders.splice(index, 1);
+        });
+    }
   }
 }

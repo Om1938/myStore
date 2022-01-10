@@ -5,6 +5,9 @@ const {
   addProduct,
   updateQuantity,
   deleteProductFromCart,
+
+  getProductsLocalStorage,
+  mergeCart,
 } = require("./CartDAL");
 // /auth/
 router
@@ -39,6 +42,16 @@ router
         res.json(resp);
       })
       .catch(next);
+  })
+  .post("/getProducts", (req, res, next) => {
+    getProductsLocalStorage(req.body).then((resp) => {
+      res.json(resp);
+    });
+  })
+  .post("/mergeCart", jwtVerify, (req, res, next) => {
+    mergeCart(res.user.email, req.body).then((resp) => {
+      res.json(resp);
+    });
   });
 
 module.exports = router;

@@ -33,3 +33,15 @@ module.exports.addToCart = async (id, email) => {
 
   return res;
 };
+
+module.exports.getProducts = async (products) => {
+  const dbo = await db;
+  const Products = dbo.collection("product");
+  console.log(products);
+  let prods = await Products.find({
+    _id: {
+      $in: products.map(ObjectId),
+    },
+  }).toArray();
+  return prods;
+};

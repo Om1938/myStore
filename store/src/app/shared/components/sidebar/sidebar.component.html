@@ -1,0 +1,16 @@
+<div
+  *ngFor="let item of items"
+  class="item"
+  [ngClass]="{ active: !IsItemActive(item) }"
+>
+  <div (click)="clickItem($event, item)" class="link">
+    <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+    <mat-icon *ngIf="!item.icon">language</mat-icon>
+    {{ item.title | uppercase }}
+  </div>
+  <app-sidebar
+    *ngIf="item.children"
+    [items]="item.children"
+    [isChild]="true"
+  ></app-sidebar>
+</div>

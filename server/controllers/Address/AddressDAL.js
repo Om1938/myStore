@@ -1,7 +1,6 @@
 let db = require("../../config/db");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { createCart } = require("../Cart/CartDAL");
 
 module.exports.welcome = () => {
   return "Hey, You reached the Auth Server.";

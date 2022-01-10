@@ -1,6 +1,7 @@
-const { ObjectId } = require("mongodb");
+const { ObjectId, ReturnDocument } = require("mongodb");
 const db = require("../../config/db");
 const throwError = require("../../helper/throwError");
+const { getProducts } = require("../Product/ProductDAL");
 
 module.exports.get = async (email) => {
   const dbo = await db;
@@ -39,7 +40,6 @@ module.exports.get = async (email) => {
     },
   ]).toArray();
 
-  console.log(result);
   return result.map((res) => {
     return {
       quantity: res.cart.Quantity,
@@ -47,6 +47,16 @@ module.exports.get = async (email) => {
     };
   });
 };
+
+module.exports.createCart = async (email) => {
+  const dbo = await db;
+  const Cart = dbo.collection("cart");
+
+  const res = await Cart.insertOne({ email, cart: [] });
+
+  return res;
+};
+
 module.exports.addProduct = async (email, { productId }) => {
   const dbo = await db;
   const Cart = dbo.collection("cart");
@@ -59,8 +69,6 @@ module.exports.addProduct = async (email, { productId }) => {
 module.exports.updateQuantity = async (email, { productId, quantity }) => {
   const dbo = await db;
   const Cart = dbo.collection("cart");
-
-  console.log(email, quantity, productId);
 
   if (quantity <= 0) {
     await this.deleteProductFromCart(email, { productId });
@@ -85,5 +93,24 @@ module.exports.deleteProductFromCart = async (email, { productId }) => {
     },
     { $pull: { cart: { productId: new ObjectId(productId) } } }
   );
-  console.log(res);
+};
+
+module.exports.getProductsLocalStorage = async ({ productIds }) => {
+  let retProducts = await getProducts(productIds);
+
+  return retProducts.map((product) => {
+    let { image, name, price, _id } = product;
+    return { image, name, price, _id };
+  });
+};
+
+module.exports.mergeCart = async (email,productIds) => {
+  const dbo = await db;
+  const Cart = dbo.collection("cart");
+
+  // let res = await Cart.updateMany({
+  //   email,
+    
+  // })
+
 };

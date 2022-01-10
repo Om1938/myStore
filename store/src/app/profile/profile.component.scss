@@ -1,0 +1,9 @@
+.sidebar {
+  width: 25%;
+}
+.page {
+  & > * {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+}

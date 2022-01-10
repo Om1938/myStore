@@ -1,0 +1,21 @@
+
+.item {
+  padding: 20px 12px 5px 24px;
+  margin: 2px 0px;
+  background-color: #fff;
+  padding-bottom: 10px;
+
+  .link{
+    cursor: pointer;
+  }
+
+  &.active{
+    background-color: #f5faff;
+    color: #2874f0;
+  }
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
